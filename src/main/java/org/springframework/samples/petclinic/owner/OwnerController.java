@@ -33,14 +33,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- * @author Michael Isvy
- */
 @Controller
 class OwnerController {
 
@@ -88,26 +82,24 @@ class OwnerController {
 	@GetMapping("/owners")
 	public String processFindForm(@RequestParam(defaultValue = "1") int page, Owner owner, BindingResult result,
 			Model model) {
-		// allow parameterless GET request for /owners to return all records
+
 		if (owner.getLastName() == null) {
-			owner.setLastName(""); // empty string signifies broadest possible search
+			owner.setLastName("");
 		}
 
-		// find owners by last name
 		Page<Owner> ownersResults = findPaginatedForOwnersLastName(page, owner.getLastName());
 		if (ownersResults.isEmpty()) {
-			// no owners found
+
 			result.rejectValue("lastName", "notFound", "not found");
 			return "owners/findOwners";
 		}
 
 		if (ownersResults.getTotalElements() == 1) {
-			// 1 owner found
+
 			owner = ownersResults.iterator().next();
 			return "redirect:/owners/" + owner.getId();
 		}
 
-		// multiple owners found
 		return addPaginationModel(page, model, ownersResults);
 	}
 
@@ -146,11 +138,6 @@ class OwnerController {
 		return "redirect:/owners/{ownerId}";
 	}
 
-	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");

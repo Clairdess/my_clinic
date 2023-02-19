@@ -22,26 +22,17 @@ import org.springframework.core.style.ToStringCreator;
 import org.springframework.samples.petclinic.model.Person;
 import org.springframework.util.Assert;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 
-/**
- * Simple JavaBean domain object representing an owner.
- *
- * @author Ken Krebs
- * @author Juergen Hoeller
- * @author Sam Brannen
- * @author Michael Isvy
- * @author Oliver Drotbohm
- */
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
@@ -98,20 +89,11 @@ public class Owner extends Person {
 		}
 	}
 
-	/**
-	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * @param name to test
-	 * @return a pet if pet name is already in use
-	 */
+
 	public Pet getPet(String name) {
 		return getPet(name, false);
 	}
 
-	/**
-	 * Return the Pet with the given id, or null if none found for this Owner.
-	 * @param name to test
-	 * @return a pet if pet id is already in use
-	 */
 	public Pet getPet(Integer id) {
 		for (Pet pet : getPets()) {
 			if (!pet.isNew()) {
@@ -124,11 +106,7 @@ public class Owner extends Person {
 		return null;
 	}
 
-	/**
-	 * Return the Pet with the given name, or null if none found for this Owner.
-	 * @param name to test
-	 * @return a pet if pet name is already in use
-	 */
+
 	public Pet getPet(String name, boolean ignoreNew) {
 		name = name.toLowerCase();
 		for (Pet pet : getPets()) {
@@ -151,11 +129,6 @@ public class Owner extends Person {
 				.toString();
 	}
 
-	/**
-	 * Adds the given {@link Visit} to the {@link Pet} with the given identifier.
-	 * @param petId the identifier of the {@link Pet}, must not be {@literal null}.
-	 * @param visit the visit to add, must not be {@literal null}.
-	 */
 	public Owner addVisit(Integer petId, Visit visit) {
 
 		Assert.notNull(petId, "Pet identifier must not be null!");

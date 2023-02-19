@@ -29,13 +29,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
-/**
- * @author Juergen Hoeller
- * @author Ken Krebs
- * @author Arjen Poutsma
- */
+
 @Controller
 @RequestMapping("/owners/{ownerId}")
 class PetController {
